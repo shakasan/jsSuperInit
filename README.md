@@ -65,9 +65,9 @@ Ubuntu 16.04/18.04 - Linux Mint 18.x/19.x
 
 ```shell
 git clone https://github.com/shakasan/jsSuperInit.git
-cd jsSuperInit
-chmod +x jsSuperInit.sh
-sudo cp jsSuperInit.sh /usr/local/bin/
+cd jsSuperInit/
+chmod +x jsSuperInit
+sudo cp jsSuperInit /usr/local/bin/
 ```
 
 ## TODO
