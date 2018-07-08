@@ -23,11 +23,20 @@ Usage : jsSuperInit [options]
 
 ## Install
 
-TODO
+Ubuntu 16.04/18.04 - Linux Mint 18.x/19.x
+```shell
+git clone https://github.com/shakasan/jsSuperInit.git
+cd jsSuperInit
+chmod +x jsSuperInit.sh
+sudo cp jsSuperInit.sh /usr/local/bin/
+```
 
 ## TODO
 
-[ ] Check and install if necessary VSCode extensions and needed settings
+[ ] Check and install VSCode extensions and needed settings if necessary
+[ ] Susy v3
+[ ] Bootstrap
+[ ] suggestions ?
 
 ## Credits
 
