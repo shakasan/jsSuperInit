@@ -1,3 +1,5 @@
+![jsSuperInit](pics/logo.png)
+
 # jsSuperInit
 
 ## About
