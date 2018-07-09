@@ -61,8 +61,6 @@ See https://stedolan.github.io/jq/ for other distros
 
 ## Install
 
-Ubuntu 16.04/18.04 - Linux Mint 18.x/19.x
-
 ```shell
 git clone https://github.com/shakasan/jsSuperInit.git
 cd jsSuperInit/
@@ -72,11 +70,11 @@ sudo cp jsSuperInit /usr/local/bin/
 
 ## TODO
 
-[ ] Check and install VSCode extensions and needed settings if necessary ?
-[ ] Susy v3 ?
-[ ] Bootstrap
-[ ] angular/cli
-[ ] suggestions ?
+- [ ] Check and install VSCode extensions and needed settings if necessary ?
+- [ ] Susy v3 ?
+- [ ] Bootstrap
+- [ ] angular/cli
+- [ ] suggestions ?
 
 ## Release notes
 
