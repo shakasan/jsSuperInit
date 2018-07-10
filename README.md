@@ -43,13 +43,13 @@ jsSuperInit.sh -in
 Create a new JS project + .gitignore file + eslint + prettier + webpack + materialize + HTML boilerplate
 
 ```shell
-jsSuperInit.sh -inbemw
+jsSuperInit.sh -intemw
 ```
 
 Create a simple project + .gitignore + jQuery + HTML boilerplate
 
 ```shell
-jsSuperInit.sh -inbj
+jsSuperInit.sh -intj
 ```
 
 ## Requirements
