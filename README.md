@@ -13,11 +13,12 @@ Usage : jsSuperInit [options]
 
  -i : create .gitignore and .stignore files
  -n : npm init
- -b : create boilerplate HTML template (and deps from other options below)
+ -t : create boilerplate HTML template (and deps from other options below)
  -e : install/configure eslint/prettier + AirBnB config
  -p : install/configure webcomponents polyfil for Firefox
  -m : install/configure Materialize CSS framework
  -j : install/configure jquery
+ -b : install/configure Boostrap CSS framework
  -r : install/configure normalize.css CSS framework
  -w : install/configure webpack
  -h : show help & informations

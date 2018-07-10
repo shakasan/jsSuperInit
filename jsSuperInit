@@ -148,6 +148,7 @@ function usage() {
     printf " "$BOLDVERT"-p"$NORMAL" : install/configure webcomponents polyfil for Firefox\n"
     printf " "$BOLDVERT"-m"$NORMAL" : install/configure Materialize CSS framework\n"
     printf " "$BOLDVERT"-j"$NORMAL" : install/configure jquery\n"
+    printf " "$BOLDVERT"-b"$NORMAL" : install/configure Boostrap CSS framework\n"
     printf " "$BOLDVERT"-r"$NORMAL" : install/configure normalize.css CSS framework\n"
     printf " "$BOLDVERT"-w"$NORMAL" : install/configure webpack\n"
     printf " "$BOLDVERT"-h"$NORMAL" : show help & informations\n"
@@ -557,9 +558,6 @@ logo
 # check deps...and exit if not satisfied
 checkDeps
 
-# check if a project is already exist
-checkProject
-
 # if no parameters ... show help and exit
 [[ $# -lt 1 ]] && usage && exit 1
 
@@ -625,6 +623,9 @@ while getopts "$optStr" option; do
 			;;
     esac
 done
+
+# check if a project is already exist
+checkProject
 
 # check if no conflicts between css frameworks
 checkCssFrameworkConflicts
