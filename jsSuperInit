@@ -107,7 +107,7 @@ function checkCssFrameworkConflicts() {
             printf "See you ;-)\n\n"
             exit 1
         fi
-fi
+    fi
 }
 
 #------------------------------------------------------------------------------
