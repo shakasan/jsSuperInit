@@ -31,9 +31,11 @@ BOLDBLANC=${BOLD}${BLANC}
 # app version number
 version="0.1.0"
 # init/status vars
-npmInited=0
 npmRequired=0
 boilerplateRequired=0
+gitIgnoreRequired=0
+jqueryInstalled=0
+numberOfCssFrameworkSelected=0
 
 #------------------------------------------------------------------------------
 # disp app logo
@@ -76,10 +78,17 @@ function checkDeps() {
 #------------------------------------------------------------------------------
 
 function checkProject() {
-    if which package.json &>/dev/null; then
+    if [ -f package.json ]; then
         printf $BOLDROUGE"Error"$NORMAL" : $OPTARG : a project already exist...\n\n"
         printf $NORMAL
-        exit 1
+        printf "current package.json wild be lost, do you confirm (yes/no) : "
+        read choix &>/dev/null
+        if [ "$choix" == "yes" ]; then
+            printf "Let's start the job ;-)\n\n"
+        else
+            printf "See you ;-)\n\n"
+            exit 1
+        fi
     fi
 }
 
@@ -99,11 +108,11 @@ function showUsageExamples() {
     printf $BOLDVERT
     printf "Create a new JS project + .gitignore file + eslint + prettier + webpack + materialize + HTML boilerplate\n"
     printf $NORMAL
-    printf "> jsSuperInit.sh -inbemw\n\n"
+    printf "> jsSuperInit.sh -intemw\n\n"
     printf $BOLDVERT
     printf "Create a simple project + .gitignore + jQuery + HTML boilerplate\n"
     printf $NORMAL
-    printf "> jsSuperInit.sh -inbj\n\n"
+    printf "> jsSuperInit.sh -intj\n\n"
     printf $NORMAL
 }
 
@@ -116,7 +125,7 @@ function usage() {
     printf $BOLDVERT"Usage"$NORMAL" : jsSuperInit [options]\n\n"
     printf " "$BOLDVERT"-i"$NORMAL" : create .gitignore and .stignore files\n"
     printf " "$BOLDVERT"-n"$NORMAL" : npm init\n"
-    printf " "$BOLDVERT"-b"$NORMAL" : create boilerplate HTML template (and deps from other options below)\n"
+    printf " "$BOLDVERT"-t"$NORMAL" : create boilerplate HTML template (and deps from other options below)\n"
     printf " "$BOLDVERT"-e"$NORMAL" : install/configure eslint/prettier + AirBnB config\n"
     printf " "$BOLDVERT"-p"$NORMAL" : install/configure webcomponents polyfil for Firefox\n"
     printf " "$BOLDVERT"-m"$NORMAL" : install/configure Materialize CSS framework\n"
@@ -439,6 +448,36 @@ function addTemplate_NormalizeCSS() {
 }
 
 #------------------------------------------------------------------------------
+# install bootstrap in the project
+#------------------------------------------------------------------------------
+
+function install_Bootstrap() {
+    printf $NORMAL
+    printf "[bootstrap] npm : installing : bootstrap..."
+    npm i --save bootstrap &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
+    printf $NORMAL
+}
+
+#------------------------------------------------------------------------------
+# add bootstrap to the project
+#------------------------------------------------------------------------------
+
+function addTemplate_bootstrap() {
+    printf $NORMAL
+    local placeholderCSS="%%BOOTSTRAPCSS%%"
+    local link='<link rel="stylesheet" src="node_modules/bootstrap/dist/css/bootstrap.min.css">'
+    printf "[bootstrap] adding bootstrap css to the project..."
+    sed -i "s@${placeholderCSS}@${link}@g" index.html &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
+    printf $NORMAL
+
+    local placeholderJS="%%BOOTSTRAPJS%%"
+    local script='<script type="text/javascript" src="node_modules/bootstrap/js/bootstrap.min.js"></script>'
+    printf "[bootstrap] adding bootstrap js to the project..."
+    sed -i "s@${placeholderJS}@${script}@g" index.html &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
+    printf $NORMAL
+}
+
+#------------------------------------------------------------------------------
 # create index.html (boilerplate)
 #------------------------------------------------------------------------------
 
@@ -453,11 +492,14 @@ cat << EOF | tee index.html &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $B
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Project</title>
+    %%NORMALIZECSS%%
     %%MATERIALIZECSS%%
+    %%BOOTSTRAPCSS%%
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     %%WEBCOMPONENTS%%
+    %%BOOTSTRAPJS%%
     %%MATERIALIZEJS%%
     %%JQUERY%%
     %%WEBPACKAPPJS%%
@@ -471,11 +513,6 @@ EOF
 # clean useless placeholders
 #------------------------------------------------------------------------------
 
-# %%MATERIALIZECSS%%
-# %%WEBCOMPONENTS%%
-# %%MATERIALIZEJS%%
-# %%JQUERY%%
-# %%WEBPACKAPPJS%%
 function cleanUselessPlaceholders() {
     printf $NORMAL
     local cleanstr=""
@@ -486,6 +523,8 @@ function cleanUselessPlaceholders() {
     && sed -i "s@%%JQUERY%%@${cleanstr}@g" index.html &>/dev/null \
     && sed -i "s@%%WEBPACKAPPJS%%@${cleanstr}@g" index.html &>/dev/null \
     && sed -i "s@%%NORMALIZECSS%%@${cleanstr}@g" index.html &>/dev/null \
+    && sed -i "s@%%BOOTSTRAPCSS%%@${cleanstr}@g" index.html &>/dev/null \
+    && sed -i "s@%%BOOTSTRAPJS%%@${cleanstr}@g" index.html &>/dev/null \
     && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
     printf $NORMAL
 }
@@ -506,36 +545,40 @@ checkProject
 # if no parameters ... show help and exit
 [[ $# -lt 1 ]] && usage && exit 1
 
-optStr=":i,b,n,e,p,m,j,r,w,h,H,v"
+optStr=":i,t,n,e,p,m,j,b,r,w,h,H,v"
 
 # first analyze of args, to set some init vars
 while getopts "$optStr" option; do
     case "$option" in
 		i) # gitignore + stignore
-            create_GitignoreFile
-            create_StignoreFile
+            gitIgnoreRequired=1
 			;;
-        b) # boilerplate
-            createTemplate_HTML
+        t) # boilerplate
             boilerplateRequired=1
             ;;
         n) # npm init
-            npmInit
-            npmInited=1
+            npmRequired=1
             ;;
         e) # eslint + prettier
             npmRequired=1
             ;;
-        p) # webcomponents polyful for firefox
+        p) # webcomponents polyfil for firefox
             npmRequired=1
             ;;
         m) # materialize
+            numberOfCssFrameworkSelected=$(($numberOfCssFrameworkSelected+1))
             npmRequired=1
             ;;
         j) # jquery
             npmRequired=1
             ;;
+        b) # bootstrap
+            npmRequired=1
+            numberOfCssFrameworkSelected=$(($numberOfCssFrameworkSelected+1))
+            ;;
         r) # normalize.css
+            npmRequired=1
+            numberOfCssFrameworkSelected=$(($numberOfCssFrameworkSelected+1))
             ;;
         w) # webpack
             npmRequired=1
@@ -565,10 +608,26 @@ while getopts "$optStr" option; do
     esac
 done
 
-# check if npm init has been performed if required (dependency)
-if [[ $npmRequired -eq 1 ]] && [[ $npmInited -eq 0 ]]; then
-    #echo "npm init missing, doing now..."
+# check if no conflicts between css frameworks
+if [[ $numberOfCssFrameworkSelected -gt 1 ]]; then
+    printf $BOLDROUGE"Error"$NORMAL" : several CSS frameworks selected and are in conflict, please check...\n\n"
+    exit 1
+fi
+
+# add .gitignore/.stignore files if required
+if [[ $gitIgnoreRequired -eq 1 ]]; then
+    create_GitignoreFile
+    create_StignoreFile
+fi
+
+# npm init if required
+if [[ $npmRequired -eq 1 ]]; then
     npmInit
+fi
+
+# add boiler template if required
+if [[ $boilerplateRequired -eq 1 ]]; then
+    createTemplate_HTML
 fi
 
 # re-analyze args
@@ -577,7 +636,7 @@ while getopts "$optStr" option; do
     case "$option" in
 		i) # gitignore + stignore
 			;;
-        b) # boilerplate
+        t) # boilerplate
             ;;
         n) # npm init
             ;;
@@ -599,9 +658,25 @@ while getopts "$optStr" option; do
             fi
             ;;
         j) # jquery
-            install_Jquery
+            if [[ $jqueryInstalled -eq 0 ]]; then
+                install_Jquery
+                if [[ $boilerplateRequired -eq 1 ]]; then
+                    addTemplate_Jquery
+                fi
+                jqueryInstalled=1
+            fi
+            ;;
+        b) # bootstrap
+            install_Bootstrap
             if [[ $boilerplateRequired -eq 1 ]]; then
-                addTemplate_Jquery
+                addTemplate_bootstrap
+            fi
+            if [[ $jqueryInstalled -eq 0 ]]; then
+                install_Jquery
+                if [[ $boilerplateRequired -eq 1 ]]; then
+                    addTemplate_Jquery
+                fi
+                jqueryInstalled=1
             fi
             ;;
         r) # normalize.css
