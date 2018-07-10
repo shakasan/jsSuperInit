@@ -13,13 +13,15 @@ Usage : jsSuperInit [options]
 
  -i : create .gitignore and .stignore files
  -n : npm init
- -b : create boilerplate template
- -e : install/configure eslint/prettier
+ -b : create boilerplate HTML template (and deps from other options below)
+ -e : install/configure eslint/prettier + AirBnB config
  -p : install/configure webcomponents polyfil for Firefox
  -m : install/configure Materialize CSS framework
  -j : install/configure jquery
+ -r : install/configure normalize.css CSS framework
  -w : install/configure webpack
  -h : show help & informations
+ -H : show some usage examples
  -v : show app version
 ```
 
@@ -74,8 +76,8 @@ sudo cp jsSuperInit /usr/local/bin/
 
 - [ ] Check and install VSCode extensions and needed settings if necessary ?
 - [ ] Susy v3 ?
-- [ ] Bootstrap
-- [ ] angular/cli
+- [ ] Bootstrap ?
+- [ ] angular, angular/cli ?
 - [ ] suggestions ?
 
 ## Release notes

@@ -83,6 +83,29 @@ function checkProject() {
     fi
 }
 
+#------------------------------------------------------------------------------
+# Show some usage examples
+#------------------------------------------------------------------------------
+
+function showUsageExamples() {
+    printf $BOLDVERT
+    printf "Only create .gitignore file (current directory)\n"
+    printf $NORMAL
+    printf "> jsSuperInit.sh -i\n\n"
+    printf $BOLDVERT
+    printf "Create a new JS project + .gitignore file\n"
+    printf $NORMAL
+    printf "> jsSuperInit.sh -in\n\n"
+    printf $BOLDVERT
+    printf "Create a new JS project + .gitignore file + eslint + prettier + webpack + materialize + HTML boilerplate\n"
+    printf $NORMAL
+    printf "> jsSuperInit.sh -inbemw\n\n"
+    printf $BOLDVERT
+    printf "Create a simple project + .gitignore + jQuery + HTML boilerplate\n"
+    printf $NORMAL
+    printf "> jsSuperInit.sh -inbj\n\n"
+    printf $NORMAL
+}
 
 #------------------------------------------------------------------------------
 # show options
@@ -101,6 +124,7 @@ function usage() {
     printf " "$BOLDVERT"-r"$NORMAL" : install/configure normalize.css CSS framework\n"
     printf " "$BOLDVERT"-w"$NORMAL" : install/configure webpack\n"
     printf " "$BOLDVERT"-h"$NORMAL" : show help & informations\n"
+    printf " "$BOLDVERT"-H"$NORMAL" : show some usage examples\n"
     printf " "$BOLDVERT"-v"$NORMAL" : show app version\n"
     printf "\n"
 }
@@ -482,7 +506,7 @@ checkProject
 # if no parameters ... show help and exit
 [[ $# -lt 1 ]] && usage && exit 1
 
-optStr=":i,b,n,e,p,m,j,r,w,h,v"
+optStr=":i,b,n,e,p,m,j,r,w,h,H,v"
 
 # first analyze of args, to set some init vars
 while getopts "$optStr" option; do
@@ -520,6 +544,10 @@ while getopts "$optStr" option; do
 			usage
 			exit 0
 			;;
+        H) # show usage examples
+            showUsageExamples
+            exit 0
+            ;;
         v) # show app version
             printf "version : "$version"\n\n"
             exit 0
