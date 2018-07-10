@@ -81,7 +81,7 @@ function checkProject() {
     if [ -f package.json ]; then
         printf $BOLDROUGE"Error"$NORMAL" : $OPTARG : a project already exist...\n\n"
         printf $NORMAL
-        printf "current package.json wild be lost, do you confirm (yes/no) : "
+        printf "Current package.json wild be lost, do you confirm (yes/no) : "
         read choix &>/dev/null
         if [ "$choix" == "yes" ]; then
             printf "Let's start the job ;-)\n\n"
@@ -90,6 +90,24 @@ function checkProject() {
             exit 1
         fi
     fi
+}
+
+#------------------------------------------------------------------------------
+# check if several CSS frameworks selected and are in conflict
+#------------------------------------------------------------------------------
+
+function checkCssFrameworkConflicts() {
+    if [[ $numberOfCssFrameworkSelected -gt 1 ]]; then
+    printf $BOLDROUGE"Error"$NORMAL" : several CSS frameworks selected and are in conflict...\n\n"
+    printf "Do you confirm this choice ? : "
+    read choix &>/dev/null
+        if [ "$choix" == "yes" ]; then
+            printf "Let's start the job ;-)\n\n"
+        else
+            printf "See you ;-)\n\n"
+            exit 1
+        fi
+fi
 }
 
 #------------------------------------------------------------------------------
@@ -609,10 +627,7 @@ while getopts "$optStr" option; do
 done
 
 # check if no conflicts between css frameworks
-if [[ $numberOfCssFrameworkSelected -gt 1 ]]; then
-    printf $BOLDROUGE"Error"$NORMAL" : several CSS frameworks selected and are in conflict, please check...\n\n"
-    exit 1
-fi
+checkCssFrameworkConflicts
 
 # add .gitignore/.stignore files if required
 if [[ $gitIgnoreRequired -eq 1 ]]; then
