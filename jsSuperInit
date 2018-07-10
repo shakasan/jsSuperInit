@@ -91,11 +91,12 @@ function usage() {
     printf $BOLDVERT"Usage"$NORMAL" : jsSuperInit [options]\n\n"
     printf " "$BOLDVERT"-i"$NORMAL" : create .gitignore and .stignore files\n"
     printf " "$BOLDVERT"-n"$NORMAL" : npm init\n"
-    printf " "$BOLDVERT"-b"$NORMAL" : create boilerplate template\n"
-    printf " "$BOLDVERT"-e"$NORMAL" : install/configure eslint/prettier\n"
+    printf " "$BOLDVERT"-b"$NORMAL" : create boilerplate HTML template (and deps from other options below)\n"
+    printf " "$BOLDVERT"-e"$NORMAL" : install/configure eslint/prettier + AirBnB config\n"
     printf " "$BOLDVERT"-p"$NORMAL" : install/configure webcomponents polyfil for Firefox\n"
     printf " "$BOLDVERT"-m"$NORMAL" : install/configure Materialize CSS framework\n"
     printf " "$BOLDVERT"-j"$NORMAL" : install/configure jquery\n"
+    printf " "$BOLDVERT"-r"$NORMAL" : install/configure normalize.css CSS framework\n"
     printf " "$BOLDVERT"-w"$NORMAL" : install/configure webpack\n"
     printf " "$BOLDVERT"-h"$NORMAL" : show help & informations\n"
     printf " "$BOLDVERT"-v"$NORMAL" : show app version\n"
@@ -192,7 +193,7 @@ EOF
 
 function configure_Prettier() {
     printf $NORMAL
-    printf "[prettier] creating .prettiertc file..."
+    printf "[prettier] creating .prettierrc file..."
     cat << EOF | tee .prettierrc &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
 {
 	"printWidth": 100,
@@ -265,16 +266,22 @@ function install_Webpack() {
     printf "[webpack] npm : installing : webpack webpack-cli..."
     npm i --save-dev webpack webpack-cli &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
     printf $NORMAL
+    printf "[webpack] create build dir if necessary..."
+    mkdir -p build &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
+    printf $NORMAL
+    printf "[webpack] create src dir if necessary..."
+    mkdir -p src &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
+    printf $NORMAL
 }
 
 #------------------------------------------------------------------------------
-# add webpack main.js to project template
+# add webpack main.js to project
 #------------------------------------------------------------------------------
 
 function addTemplate_Webpack() {
     printf $NORMAL
     local placeholder="%%WEBPACKAPPJS%%"
-    local script='<script src="build/main.js"></script>'
+    local script='<script type="text/javascript" src="build/main.js"></script>'
     printf "[webpack] adding build/mains.js to project..."
     sed -i "s@${placeholder}@${script}@g" index.html &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
     printf $NORMAL
@@ -316,7 +323,7 @@ function install_WebcomponentsPolyfil_Firefox() {
 }
 
 #------------------------------------------------------------------------------
-# add Webcomponents polyfil for Firefox to template
+# add Webcomponents polyfil for Firefox
 #------------------------------------------------------------------------------
 
 function addTemplate_WebcomponentsPolyfil_Firefox() {
@@ -340,7 +347,7 @@ function install_Materialize() {
 }
 
 #------------------------------------------------------------------------------
-# add Materialize CSS framework to project template
+# add Materialize CSS framework to project
 #------------------------------------------------------------------------------
 
 function addTemplate_Materialize() {
@@ -358,7 +365,7 @@ function addTemplate_Materialize() {
 }
 
 #------------------------------------------------------------------------------
-# install jquery to the project
+# install jquery in the project
 #------------------------------------------------------------------------------
 
 function install_Jquery() {
@@ -369,7 +376,7 @@ function install_Jquery() {
 }
 
 #------------------------------------------------------------------------------
-# add jquery to the project to project template
+# add jquery to the project to project
 #------------------------------------------------------------------------------
 
 function addTemplate_Jquery() {
@@ -378,6 +385,30 @@ function addTemplate_Jquery() {
     local script='<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>'
     printf "[jquery] adding jquery to project..."
     sed -i "s@${placeholder}@${script}@g" index.html &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
+    printf $NORMAL
+}
+
+#------------------------------------------------------------------------------
+# install normalize.css in the project
+#------------------------------------------------------------------------------
+
+function install_NormlizeCSS() {
+    printf $NORMAL
+    printf "[normalize.css] npm : installing : normalize.css..."
+    npm i --save normalize.css &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
+    printf $NORMAL
+}
+
+#------------------------------------------------------------------------------
+# add normalize.css to the project
+#------------------------------------------------------------------------------
+
+function addTemplate_NormalizeCSS() {
+    printf $NORMAL
+    local placeholderCSS="%%NORMALIZECSS%%"
+    local link='<link rel="stylesheet" src="node_modules/normalize.css/normalize.css">'
+    printf "[normalize.css] adding normalize.css to the project..."
+    sed -i "s@${placeholderCSS}@${link}@g" index.html &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
     printf $NORMAL
 }
 
@@ -428,6 +459,7 @@ function cleanUselessPlaceholders() {
     && sed -i "s@%%WEBCOMPONENTS%%@${cleanstr}@g" index.html &>/dev/null \
     && sed -i "s@%%JQUERY%%@${cleanstr}@g" index.html &>/dev/null \
     && sed -i "s@%%WEBPACKAPPJS%%@${cleanstr}@g" index.html &>/dev/null \
+    && sed -i "s@%%NORMALIZECSS%%@${cleanstr}@g" index.html &>/dev/null \
     && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
     printf $NORMAL
 }
@@ -448,7 +480,7 @@ checkProject
 # if no parameters ... show help and exit
 [[ $# -lt 1 ]] && usage && exit 1
 
-optStr=":i,b,n,e,p,m,j,w,h,v"
+optStr=":i,b,n,e,p,m,j,r,w,h,v"
 
 # first analyze of args, to set some init vars
 while getopts "$optStr" option; do
@@ -476,6 +508,8 @@ while getopts "$optStr" option; do
             ;;
         j) # jquery
             npmRequired=1
+            ;;
+        r) # normalize.css
             ;;
         w) # webpack
             npmRequired=1
@@ -538,6 +572,12 @@ while getopts "$optStr" option; do
             install_Jquery
             if [[ $boilerplateRequired -eq 1 ]]; then
                 addTemplate_Jquery
+            fi
+            ;;
+        r) # normalize.css
+            install_NormlizeCSS
+            if [[ $boilerplateRequired -eq 1 ]]; then
+                addTemplate_NormalizeCSS
             fi
             ;;
         w) # webpack
