@@ -1,6 +1,6 @@
-# jsSuperInit
+# jsbudy
 
-![jsSuperInit](pics/logo.png)
+![jsbudy](pics/logo.png)
 
 ## About
 
@@ -9,7 +9,7 @@ This little tool help to create a new JS/ES project by adding/creating needed fi
 ## Settings overview
 
 ```shell
-Usage : jsSuperInit [options]
+Usage : jsbudy [options]
 
  -i : create .gitignore and .stignore files
  -n : npm init
@@ -31,25 +31,25 @@ Usage : jsSuperInit [options]
 Only create .gitignore file (current directory)
 
 ```shell
-jsSuperInit.sh -i
+jsbudy -i
 ```
 
 Create a new JS project + .gitignore file
 
 ```shell
-jsSuperInit.sh -in
+jsbudy -in
 ```
 
 Create a new JS project + .gitignore file + eslint + prettier + webpack + materialize + HTML boilerplate
 
 ```shell
-jsSuperInit.sh -intemw
+jsbudy -intemw
 ```
 
 Create a simple project + .gitignore + jQuery + HTML boilerplate
 
 ```shell
-jsSuperInit.sh -intj
+jsbudy -intj
 ```
 
 ## Requirements
@@ -67,19 +67,19 @@ See https://stedolan.github.io/jq/ for other distros
 ## Install
 
 ```shell
-git clone https://github.com/shakasan/jsSuperInit.git
-cd jsSuperInit/
-chmod +x jsSuperInit
-sudo cp jsSuperInit /usr/local/bin/
+git clone https://github.com/shakasan/jsbudy.git
+cd jsbudy/
+chmod +x jsbudy
+sudo cp jsbudy /usr/local/bin/
 ```
 
 ## TODO
 
-- [ ] Check and install VSCode extensions and needed settings if necessary ?
-- [ ] Susy v3 ?
-- [ ] Bootstrap ?
-- [ ] angular, angular/cli ?
-- [ ] suggestions ?
+- [ ] Check and install VSCode extensions and needed settings if necessary
+- [ ] Susy v3
+- [ ] Bootstrap
+- [ ] angular, angular/cli
+- [ ] suggestions
 
 ## Release notes
 

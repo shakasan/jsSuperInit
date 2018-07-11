@@ -43,15 +43,17 @@ numberOfCssFrameworkSelected=0
 function logo() {
     printf "\n"
     printf $BOLDJAUNE
-
-    printf "     ██╗███████╗███████╗██╗   ██╗██████╗ ███████╗██████╗ ██╗███╗   ██╗██╗████████╗ \n";
-    printf "     ██║██╔════╝██╔════╝██║   ██║██╔══██╗██╔════╝██╔══██╗██║████╗  ██║██║╚══██╔══╝ \n";
-    printf "     ██║███████╗███████╗██║   ██║██████╔╝█████╗  ██████╔╝██║██╔██╗ ██║██║   ██║    \n";
-    printf "██   ██║╚════██║╚════██║██║   ██║██╔═══╝ ██╔══╝  ██╔══██╗██║██║╚██╗██║██║   ██║    \n";
-    printf "╚█████╔╝███████║███████║╚██████╔╝██║     ███████╗██║  ██║██║██║ ╚████║██║   ██║    \n";
-    printf " ╚════╝ ╚══════╝╚══════╝ ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝    \n";
+    printf "     ▄█    ▄████████ ▀█████████▄  ███    █▄  ████████▄  ▄██   ▄   \n";
+    printf "    ███   ███    ███   ███    ███ ███    ███ ███   ▀███ ███   ██▄ \n";
+    printf "    ███   ███    █▀    ███    ███ ███    ███ ███    ███ ███▄▄▄███ \n";
+    printf "    ███   ███         ▄███▄▄▄██▀  ███    ███ ███    ███ ▀▀▀▀▀▀███ \n";
+    printf "    ███ ▀███████████ ▀▀███▀▀▀██▄  ███    ███ ███    ███ ▄██   ███ \n";
+    printf "    ███          ███   ███    ██▄ ███    ███ ███    ███ ███   ███ \n";
+    printf "    ███    ▄█    ███   ███    ███ ███    ███ ███   ▄███ ███   ███ \n";
+    printf "█▄ ▄███  ▄████████▀  ▄█████████▀  ████████▀  ████████▀   ▀█████▀  \n";
+    printf "▀▀▀▀▀▀                                                            \n";
     printf $BOLDVERT
-    printf "                                   Francois B (Makoto) - makotonoblog.be - GPL-3.0 \n";
+    printf "                  Francois B (Makoto) - makotonoblog.be - GPL-3.0 \n";
     printf $NORMAL
     printf "\n"
 }
@@ -118,19 +120,19 @@ function showUsageExamples() {
     printf $BOLDVERT
     printf "Only create .gitignore file (current directory)\n"
     printf $NORMAL
-    printf "> jsSuperInit.sh -i\n\n"
+    printf "> jsbudy -i\n\n"
     printf $BOLDVERT
     printf "Create a new JS project + .gitignore file\n"
     printf $NORMAL
-    printf "> jsSuperInit.sh -in\n\n"
+    printf "> jsbudy -in\n\n"
     printf $BOLDVERT
     printf "Create a new JS project + .gitignore file + eslint + prettier + webpack + materialize + HTML boilerplate\n"
     printf $NORMAL
-    printf "> jsSuperInit.sh -intemw\n\n"
+    printf "> jsbudy -intemw\n\n"
     printf $BOLDVERT
     printf "Create a simple project + .gitignore + jQuery + HTML boilerplate\n"
     printf $NORMAL
-    printf "> jsSuperInit.sh -intj\n\n"
+    printf "> jsbudy -intj\n\n"
     printf $NORMAL
 }
 
@@ -140,7 +142,7 @@ function showUsageExamples() {
 
 function usage() {
     printf $NORMAL
-    printf $BOLDVERT"Usage"$NORMAL" : jsSuperInit [options]\n\n"
+    printf $BOLDVERT"Usage"$NORMAL" : jsbudy [options]\n\n"
     printf " "$BOLDVERT"-i"$NORMAL" : create .gitignore and .stignore files\n"
     printf " "$BOLDVERT"-n"$NORMAL" : npm init\n"
     printf " "$BOLDVERT"-t"$NORMAL" : create boilerplate HTML template (and deps from other options below)\n"
