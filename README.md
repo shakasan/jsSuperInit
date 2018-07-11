@@ -60,7 +60,7 @@ jsbudy -intj
 
 ## Install
 
-### Manual from sources
+### From sources
 
 Install jq from repository for Ubuntu 16.04/18.04 - Linux Mint 18.x/19.x
 
