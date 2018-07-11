@@ -56,15 +56,21 @@ jsbudy -intj
 
 ### jq
 
-Ubuntu 16.04/18.04 - Linux Mint 18.x/19.x
+- https://stedolan.github.io/jq/
+
+## Install
+
+### Manual from sources
+
+Install jq from repository for Ubuntu 16.04/18.04 - Linux Mint 18.x/19.x
 
 ```shell
 sudo apt-get install jq
 ```
 
-See https://stedolan.github.io/jq/ for other distros
+Or from source, see jq website : https://stedolan.github.io/jq/
 
-## Install
+And the install jsbudy
 
 ```shell
 git clone https://github.com/shakasan/jsbudy.git
@@ -73,11 +79,31 @@ chmod +x jsbudy
 sudo cp jsbudy /usr/local/bin/
 ```
 
+### From repository
+
+Ubuntu 16.04 - Linux Mint 18.x
+
+```shell
+curl -L https://packagecloud.io/makoto/stable/gpgkey | sudo apt-key add -
+echo "deb https://packagecloud.io/makoto/stable/ubuntu/ xenial main" | sudo tee /etc/apt/sources.list.d/makoto.list
+sudo apt-get update
+sudo apt-get install jsbudy
+```
+
+Ubuntu 18.04 - Linux Mint 19.x
+
+```shell
+curl -L https://packagecloud.io/makoto/stable/gpgkey | sudo apt-key add -
+echo "deb https://packagecloud.io/makoto/stable/ubuntu/ bionic main" | sudo tee /etc/apt/sources.list.d/makoto.list
+sudo apt-get update
+sudo apt-get install jsbudy
+```
+
 ## TODO
 
 - [ ] Check and install VSCode extensions and needed settings if necessary
 - [ ] Susy v3
-- [ ] Bootstrap
+- [x] Bootstrap
 - [ ] angular, angular/cli
 - [ ] suggestions
 
