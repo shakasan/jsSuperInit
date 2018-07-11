@@ -1,6 +1,6 @@
-# jsbudy
+# jsbuddy
 
-![jsbudy](pics/logo.png)
+![jsbuddy](pics/logo.png)
 
 ## About
 
@@ -9,7 +9,7 @@ This little tool help to create a new JS/ES project by adding/creating needed fi
 ## Settings overview
 
 ```shell
-Usage : jsbudy [options]
+Usage : jsbuddy [options]
 
  -i : create .gitignore and .stignore files
  -n : npm init
@@ -31,25 +31,25 @@ Usage : jsbudy [options]
 Only create .gitignore file (current directory)
 
 ```shell
-jsbudy -i
+jsbuddy -i
 ```
 
 Create a new JS project + .gitignore file
 
 ```shell
-jsbudy -in
+jsbuddy -in
 ```
 
 Create a new JS project + .gitignore file + eslint + prettier + webpack + materialize + HTML boilerplate
 
 ```shell
-jsbudy -intemw
+jsbuddy -intemw
 ```
 
 Create a simple project + .gitignore + jQuery + HTML boilerplate
 
 ```shell
-jsbudy -intj
+jsbuddy -intj
 ```
 
 ## Requirements
@@ -70,13 +70,13 @@ sudo apt-get install jq
 
 Or from source, see jq website : https://stedolan.github.io/jq/
 
-And then, install jsbudy
+And then, install jsbuddy
 
 ```shell
-git clone https://github.com/shakasan/jsbudy.git
-cd jsbudy/
-chmod +x jsbudy
-sudo cp jsbudy /usr/local/bin/
+git clone https://github.com/shakasan/jsbuddy.git
+cd jsbuddy/
+chmod +x jsbuddy
+sudo cp jsbuddy /usr/local/bin/
 ```
 
 ### From repository
@@ -87,7 +87,7 @@ Ubuntu 16.04 - Linux Mint 18.x
 curl -L https://packagecloud.io/makoto/stable/gpgkey | sudo apt-key add -
 echo "deb https://packagecloud.io/makoto/stable/ubuntu/ xenial main" | sudo tee /etc/apt/sources.list.d/makoto.list
 sudo apt-get update
-sudo apt-get install jsbudy
+sudo apt-get install jsbuddy
 ```
 
 Ubuntu 18.04 - Linux Mint 19.x
@@ -96,7 +96,7 @@ Ubuntu 18.04 - Linux Mint 19.x
 curl -L https://packagecloud.io/makoto/stable/gpgkey | sudo apt-key add -
 echo "deb https://packagecloud.io/makoto/stable/ubuntu/ bionic main" | sudo tee /etc/apt/sources.list.d/makoto.list
 sudo apt-get update
-sudo apt-get install jsbudy
+sudo apt-get install jsbuddy
 ```
 
 ## TODO
