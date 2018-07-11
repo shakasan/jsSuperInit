@@ -70,7 +70,7 @@ sudo apt-get install jq
 
 Or from source, see jq website : https://stedolan.github.io/jq/
 
-And the install jsbudy
+And then, install jsbudy
 
 ```shell
 git clone https://github.com/shakasan/jsbudy.git
