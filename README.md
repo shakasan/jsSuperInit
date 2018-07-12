@@ -13,7 +13,7 @@ Usage : jsbuddy [options]
 
  -i : create .gitignore and .stignore files
  -n : npm init
- -t : create boilerplate HTML template (and deps from other options below)
+ -t : create boilerplate HTML template (and deps from other options below)(not available yet with webpack option)
  -e : install/configure eslint/prettier + AirBnB config
  -p : install/configure webcomponents polyfil for Firefox
  -m : install/configure Materialize CSS framework

@@ -36,6 +36,7 @@ boilerplateRequired=0
 gitIgnoreRequired=0
 jqueryInstalled=0
 numberOfCssFrameworkSelected=0
+webpackRequired=0
 
 #------------------------------------------------------------------------------
 # disp app logo
@@ -145,7 +146,7 @@ function usage() {
     printf $BOLDVERT"Usage"$NORMAL" : jsbuddy [options]\n\n"
     printf " "$BOLDVERT"-i"$NORMAL" : create .gitignore and .stignore files\n"
     printf " "$BOLDVERT"-n"$NORMAL" : npm init\n"
-    printf " "$BOLDVERT"-t"$NORMAL" : create boilerplate HTML template (and deps from other options below)\n"
+    printf " "$BOLDVERT"-t"$NORMAL" : create boilerplate HTML template (and deps from other options below)(not available yet with webpack option)\n"
     printf " "$BOLDVERT"-e"$NORMAL" : install/configure eslint/prettier + AirBnB config\n"
     printf " "$BOLDVERT"-p"$NORMAL" : install/configure webcomponents polyfil for Firefox\n"
     printf " "$BOLDVERT"-m"$NORMAL" : install/configure Materialize CSS framework\n"
@@ -319,8 +320,11 @@ function npmInit() {
 
 function install_Webpack() {
     printf $NORMAL
-    printf "[webpack] npm : installing : webpack webpack-cli..."
-    npm i --save-dev webpack webpack-cli &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
+    printf "[webpack] npm : installing : webpack..."
+    npm i --save-dev webpack &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
+    printf $NORMAL
+    printf "[webpack] npm : installing :  webpack-cli..."
+    npm i --save-dev webpack-cli &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
     printf $NORMAL
     printf "[webpack] create build dir if necessary..."
     mkdir -p build &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
@@ -600,6 +604,7 @@ while getopts "$optStr" option; do
             ;;
         w) # webpack
             npmRequired=1
+            webpackRequired=1
             ;;
         h) # show help and available options
 			usage
@@ -641,6 +646,12 @@ fi
 # npm init if required
 if [[ $npmRequired -eq 1 ]]; then
     npmInit
+fi
+
+# boilerplate not available with webpack yet
+if [[ $boilerplateRequired -eq 1 ]] && [[ $webpackRequired -eq 1 ]]; then
+    printf $NORMAL"[boilerplate] : boilerplate template not available yet with webpack option ^^ "$BOLDJAUNE"[Warn]"$NORMAL"\n"
+    boilerplateRequired=0
 fi
 
 # add boiler template if required
@@ -725,7 +736,7 @@ done
 
 if [[ $boilerplateRequired -eq 1 ]]; then
     cleanUselessPlaceholders
-    rm tmp.json
+    [ -f tmp.json ] && rm tmp.json
 fi
 
 exit 0
