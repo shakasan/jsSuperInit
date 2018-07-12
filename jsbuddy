@@ -409,7 +409,7 @@ function install_Materialize() {
 function addTemplate_Materialize() {
     printf $NORMAL
     local placeholderCSS="%%MATERIALIZECSS%%"
-    local link='<link rel="stylesheet" src="node_modules/materialize-css/dist/css/materialize.min.css">'
+    local link='<link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">'
     printf "[materialize] adding materialize css framework to the project..."
     sed -i "s@${placeholderCSS}@${link}@g" index.html &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
     printf $NORMAL
@@ -462,7 +462,7 @@ function install_NormlizeCSS() {
 function addTemplate_NormalizeCSS() {
     printf $NORMAL
     local placeholderCSS="%%NORMALIZECSS%%"
-    local link='<link rel="stylesheet" src="node_modules/normalize.css/normalize.css">'
+    local link='<link rel="stylesheet" href="node_modules/normalize.css/normalize.css">'
     printf "[normalize.css] adding normalize.css to the project..."
     sed -i "s@${placeholderCSS}@${link}@g" index.html &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
     printf $NORMAL
@@ -486,7 +486,7 @@ function install_Bootstrap() {
 function addTemplate_bootstrap() {
     printf $NORMAL
     local placeholderCSS="%%BOOTSTRAPCSS%%"
-    local link='<link rel="stylesheet" src="node_modules/bootstrap/dist/css/bootstrap.min.css">'
+    local link='<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">'
     printf "[bootstrap] adding bootstrap css to the project..."
     sed -i "s@${placeholderCSS}@${link}@g" index.html &>/dev/null && printf $BOLDVERT"[OK]\n" || printf $BOLDROUGE"[FAIL]\n"
     printf $NORMAL
@@ -725,6 +725,7 @@ done
 
 if [[ $boilerplateRequired -eq 1 ]]; then
     cleanUselessPlaceholders
+    rm tmp.json
 fi
 
 exit 0
