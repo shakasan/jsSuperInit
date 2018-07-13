@@ -29,7 +29,7 @@ BOLDCYAN=${BOLD}${CYAN}
 BOLDBLANC=${BOLD}${BLANC}
 
 # app version number
-version="0.1.1"
+version="0.1.2"
 # init/status vars
 npmRequired=0
 boilerplateRequired=0
